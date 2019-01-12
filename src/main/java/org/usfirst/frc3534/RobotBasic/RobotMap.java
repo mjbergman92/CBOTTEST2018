@@ -58,9 +58,9 @@ public class RobotMap {
 		rightSideMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor);
 		leftSideMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
 		
-		pidArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		//pidArm.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-		navx = new AHRS(SerialPort.Port.kMXP);
+		//navx = new AHRS(SerialPort.Port.kMXP);
 
 	}
 }

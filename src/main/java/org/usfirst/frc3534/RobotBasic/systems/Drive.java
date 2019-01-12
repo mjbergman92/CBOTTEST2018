@@ -29,7 +29,15 @@ public class Drive extends SystemBase implements SystemInterface {
 
 		if (Robot.teleop && Robot.enabled) {
 
-			drive.arcadeDrive(Robot.oi.getController1().getY(Hand.kRight), Robot.oi.getController1().getX(Hand.kRight));
+			if(Robot.oi.getController1().getTriggerAxis(Hand.kRight) >= 0.5){
+
+				drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft) * 0.6, Robot.oi.getController1().getX(Hand.kLeft) * 0.8);
+
+			}else{
+
+				drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft), Robot.oi.getController1().getX(Hand.kLeft));
+
+			}
 
 		} else if (Robot.autonomous) {
 

@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 	public static int AUTON_PERIODIC = 1;
 	public static OI oi;
 	public static Drive drive;
-	public static Shooter shooter;
+	//public static Shooter shooter;
 
 	private int loopPeriod = 0;
 	private int loopCnt = 0;
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 		RobotMap.init();
 
 		drive = new Drive();
-		shooter = new Shooter();
+		//shooter = new Shooter();
 
 		// OI must be constructed after subsystems. If the OI creates Commands
 		// (which it very likely will), subsystems are not guaranteed to be
@@ -181,7 +181,7 @@ public class Robot extends TimedRobot {
 
 				// run processes
 				drive.process();
-				shooter.process();
+				//shooter.process();
 
 			}
 
