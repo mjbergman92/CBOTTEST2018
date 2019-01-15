@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
 	private int loopCnt = 0;
 	private int logCounter = 0;
 
-	public static double designatedLoopPeriod = 20; // in milliseconds. milliseconds = seconds/1000. seconds to
+	public static double designatedLoopPeriod = 40; // in milliseconds. milliseconds = seconds/1000. seconds to
 													// milliseconds . seconds * 1000 = milliseconds
 
 	public static boolean autonomous;
