@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.Map;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Reader {
 
@@ -22,9 +25,21 @@ public class Reader {
 
 		int rows = 0;
 		BufferedReader reader = null;
+		File curDir = new File("../../../.");
+		File[] filesList = curDir.listFiles();
+		int i = 0;
+        for(File f : filesList){
+			i ++;
+            if(f.isDirectory())
+               // getAllFiles(f);
+            if(f.isFile()){
+                SmartDashboard.putString("File" + i, f.getName());
+            }
+        }
 		try {
 			reader = new BufferedReader(
-					new FileReader(new File(side.toString() + "trajectorystep" + step + "traj" + traj)));
+				new FileReader(new File("./home/admin/trajectory" + traj + "/" + side.toString() + "trajectorystep" + step + "traj" + traj + ".csv")));
+				//new FileReader(new File("/" + side.toString() + "trajectorystep" + step + "traj" + traj)));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

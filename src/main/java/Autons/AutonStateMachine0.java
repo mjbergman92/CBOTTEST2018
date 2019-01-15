@@ -25,7 +25,7 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 	Reader reader;
 
-	int step, posTraj = 1;
+	int step, posTraj = 3;
 	/*
 	 * step should equal the part that the trajectory as a whole is on. If it has
 	 * five parts, and you are on the second part, make it equal to 2 for that case
@@ -37,8 +37,6 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 	public AutonStateMachine0() {
 
-		rightFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
-		leftFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
 		reader = new Reader();
 
 	}
@@ -52,7 +50,7 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 		case 1:
 
-			navX.zeroYaw();
+			//navX.zeroYaw();
 			frontRight.getSensorCollection().setQuadraturePosition(0, 0);
 			frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
 
@@ -60,6 +58,88 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 			break;
 
 		case 10:
+
+			step = 1;
+
+			rightTraj = reader.getSegments(Reader.Side.right, posTraj, step);
+			leftTraj = reader.getSegments(Reader.Side.left, posTraj, step);
+
+			rightFollower = new EncoderFollower(rightTraj);
+			leftFollower = new EncoderFollower(leftTraj);
+
+			rightFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
+			leftFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
+
+			rightFollower.setTrajectory(rightTraj);
+			leftFollower.setTrajectory(leftTraj);
+
+			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+
+			nextState = 20;
+			break;
+
+		case 20:
+
+			Robot.drive
+					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+
+			if (rightFollower.isFinished() && leftFollower.isFinished()) {
+				nextState = 30;
+			}
+			break;
+
+		case 30:
+
+			//navX.zeroYaw();
+			frontRight.getSensorCollection().setQuadraturePosition(0, 0);
+			frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
+
+			nextState = 40;
+			break;
+
+		case 40:
+
+			step = 3;
+
+			rightTraj = reader.getSegments(Reader.Side.right, posTraj, step);
+			leftTraj = reader.getSegments(Reader.Side.left, posTraj, step);
+
+			rightFollower.setTrajectory(rightTraj);
+			leftFollower.setTrajectory(leftTraj);
+
+			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+
+			nextState = 50;
+			break;
+
+		case 50:
+
+			Robot.drive
+					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+
+			if (rightFollower.isFinished() && leftFollower.isFinished()) {
+				nextState = 60;
+			}
+			break;
+
+		case 60:
+
+			//navX.zeroYaw();
+			frontRight.getSensorCollection().setQuadraturePosition(0, 0);
+			frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
+
+			nextState = 70;
+			break;
+
+		case 70:
 
 			step = 1;
 
@@ -74,10 +154,48 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(),
 					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
 
-			nextState = 20;
+			nextState = 80;
 			break;
 
-		case 20:
+		case 80:
+
+			Robot.drive
+					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+
+			if (rightFollower.isFinished() && leftFollower.isFinished()) {
+				nextState = 90;
+			}
+			break;
+
+		case 90:
+
+			//navX.zeroYaw();
+			frontRight.getSensorCollection().setQuadraturePosition(0, 0);
+			frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
+
+			nextState = 95;
+			break;
+
+		case 95:
+
+			step = 3;
+
+			rightTraj = reader.getSegments(Reader.Side.right, posTraj, step);
+			leftTraj = reader.getSegments(Reader.Side.left, posTraj, step);
+
+			rightFollower.setTrajectory(rightTraj);
+			leftFollower.setTrajectory(leftTraj);
+
+			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(),
+					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+
+			nextState = 96;
+			break;
+
+		case 96:
 
 			Robot.drive
 					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));

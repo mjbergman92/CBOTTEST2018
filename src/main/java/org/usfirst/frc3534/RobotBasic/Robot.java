@@ -65,10 +65,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 
+		SmartDashboard.putNumber("autonMode", 0);
+
 	}
 
 	@Override
 	public void disabledPeriodic() {
+
+		log();
 
 	}
 
@@ -202,7 +206,8 @@ public class Robot extends TimedRobot {
 			// SmartDashboard Numbers
 			SmartDashboard.putNumber("Loop Period", loopPeriod);
 			SmartDashboard.putNumber("Loop Count", loopCnt);
-			SmartDashboard.putNumber("autonMode", 0);
+			SmartDashboard.putNumber("Left Side Counts", RobotMap.frontLeftMotor.getSensorCollection().getQuadraturePosition());
+			SmartDashboard.putNumber("Right Side Counts", RobotMap.frontRightMotor.getSensorCollection().getQuadraturePosition());
 
 			logCounter = 0;
 

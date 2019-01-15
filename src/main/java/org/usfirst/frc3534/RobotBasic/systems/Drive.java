@@ -46,24 +46,22 @@ public class Drive extends SystemBase implements SystemInterface {
 		}
 
 		// uncomment the following code to test for max velocity
-		/*
-		 * double velocity;
-		 * 
-		 * if(RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() >
-		 * RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity()) {
-		 * 
-		 * velocity =
-		 * RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity();
-		 * 
-		 * }else{
-		 * 
-		 * velocity =
-		 * RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity();
-		 * 
-		 * }
-		 * 
-		 * SmartDashboard.putNumber("Velocity", velocity);
-		 */
+		double velocity;
+		 
+		if(RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() >
+		RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity()) {
+		
+		velocity =
+		RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
+		
+		}else{
+		
+		velocity =
+		RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
+		
+		}
+		
+		SmartDashboard.putNumber("Velocity", velocity);
 
 	}
 

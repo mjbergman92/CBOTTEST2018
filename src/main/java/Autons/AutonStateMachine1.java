@@ -25,7 +25,7 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 	Reader reader;
 
-	int step, posTraj = 1;
+	int step, posTraj = 2;
 	/*
 	 * step should equal the part that the trajectory as a whole is on. If it has
 	 * five parts, and you are on the second part, make it equal to 2 for that case
@@ -37,8 +37,6 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 	public AutonStateMachine1() {
 
-		rightFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
-		leftFollower.configurePIDVA(0.8, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.0);
 		reader = new Reader();
 
 	}
@@ -52,16 +50,18 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 		case 1:
 
-			navX.zeroYaw();
-			frontRight.getSensorCollection().setQuadraturePosition(0, 0);
-			frontLeft.getSensorCollection().setQuadraturePosition(0, 0);
-
 			nextState = 10;
 			break;
 
 		case 10:
 
 			step = 1;
+
+			rightFollower = new EncoderFollower(rightTraj);
+			leftFollower = new EncoderFollower(leftTraj);
+
+			rightFollower.configurePIDVA(0.9, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.00001);
+			leftFollower.configurePIDVA(0.9, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.00001);
 
 			rightTraj = reader.getSegments(Reader.Side.right, posTraj, step);
 			leftTraj = reader.getSegments(Reader.Side.left, posTraj, step);

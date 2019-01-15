@@ -1,5 +1,7 @@
 package PathfinderWorkArounds;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class EncoderFollower {
 
 	int encoder_offset, encoder_tick_count;
@@ -90,6 +92,7 @@ public class EncoderFollower {
 		if (segment < segments.length) {
 			Segment seg = segments[segment];
 			double error = seg.position - distance_covered;
+			SmartDashboard.putNumber(this.toString() + "ERROR", error);
 			double calculated_value = kp * error + // Proportional
 					kd * ((error - last_error) / seg.dt) + // Derivative
 					(kv * seg.velocity + ka * seg.acceleration); // V and A Terms
