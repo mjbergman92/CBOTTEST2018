@@ -25,17 +25,6 @@ public class Reader {
 
 		int rows = 0;
 		BufferedReader reader = null;
-		File curDir = new File("../../../.");
-		File[] filesList = curDir.listFiles();
-		int i = 0;
-        for(File f : filesList){
-			i ++;
-            if(f.isDirectory())
-               // getAllFiles(f);
-            if(f.isFile()){
-                SmartDashboard.putString("File" + i, f.getName());
-            }
-        }
 		try {
 			reader = new BufferedReader(
 				new FileReader(new File("./home/admin/trajectory" + traj + "/" + side.toString() + "trajectorystep" + step + "traj" + traj + ".csv")));
