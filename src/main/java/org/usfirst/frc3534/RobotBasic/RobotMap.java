@@ -2,6 +2,7 @@ package org.usfirst.frc3534.RobotBasic;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -44,16 +45,20 @@ public class RobotMap {
 		frontRightMotor = new WPI_TalonSRX(5);
 		frontRightMotor.set(ControlMode.PercentOutput, 1);
 		frontRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		frontRightMotor.setNeutralMode(NeutralMode.Brake);
 
 		backRightMotor = new WPI_TalonSRX(6);
 		backRightMotor.set(ControlMode.PercentOutput, 1);
+		backRightMotor.setNeutralMode(NeutralMode.Brake);
 
 		frontLeftMotor = new WPI_TalonSRX(1);
 		frontLeftMotor.set(ControlMode.PercentOutput, 1);
 		frontLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		frontLeftMotor.setNeutralMode(NeutralMode.Brake);
 
 		backLeftMotor = new WPI_TalonSRX(2);
 		backLeftMotor.set(ControlMode.PercentOutput, 1);
+		backLeftMotor.setNeutralMode(NeutralMode.Brake);
 
 		rightSideMotors = new SpeedControllerGroup(frontRightMotor, backRightMotor);
 		leftSideMotors = new SpeedControllerGroup(frontLeftMotor, backLeftMotor);
