@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
-import java.util.Map;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Reader {
 
@@ -38,8 +35,14 @@ public class Reader {
 		String input = "";
 		try {
 
+			//skip the first line of labels
 			reader.readLine();
 
+			/* while there is valid lines of data in the trajectory file,
+			 * split the input the line of data, make a new segment with the
+			 * split data, and add one to rows in order to prepare for the next row
+			 */
+			//while there is valid lines of data in the trajectory file,
 			while ((input = reader.readLine()) != null) {
 
 				String[] inputArray = input.split(",");
