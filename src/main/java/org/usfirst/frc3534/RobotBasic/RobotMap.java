@@ -33,6 +33,7 @@ public class RobotMap {
 
 	public static final double wheelBase_width = 23.375;
 	public static final double robotMaxVeloctiy = 175; // inches per second
+	public static final double minMoveVelocity = .375;
 
 	// Wheel Encoder Calculations
 	public static final int countsPerRevEncoders = 1440; // 1440 if plugged into talon. 360 if directly into the

@@ -66,6 +66,9 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 
 		SmartDashboard.putNumber("autonMode", 0);
+		
+		SmartDashboard.putNumber("kP", 0.11);
+		SmartDashboard.putNumber("kA", 0.001);
 
 	}
 

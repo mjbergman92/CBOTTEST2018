@@ -29,6 +29,8 @@ public class Drive extends SystemBase implements SystemInterface {
 
 		if (Robot.teleop && Robot.enabled) {
 
+			SmartDashboard.putNumber("power out", -Robot.oi.getController1().getY(Hand.kLeft));
+
 			if(Robot.oi.getController1().getTriggerAxis(Hand.kRight) >= 0.5){
 
 				drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft) * 0.6, Robot.oi.getController1().getX(Hand.kLeft) * 0.8);

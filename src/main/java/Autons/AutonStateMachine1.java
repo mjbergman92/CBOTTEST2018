@@ -9,11 +9,16 @@ import com.kauailabs.navx.frc.AHRS;
 import PathfinderWorkArounds.EncoderFollower;
 import PathfinderWorkArounds.Reader;
 import PathfinderWorkArounds.Segment;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonStateMachine1 extends AutonStateMachineBase implements AutonStateMachineInterface {
 
 	int state = 1;
 	int stateCnt = 0;
+
+	double minVel = RobotMap.minMoveVelocity;
+
+	double leftPower, rightPower;
 
 	AHRS navX = RobotMap.navx;
 	WPI_TalonSRX frontRight = RobotMap.frontRightMotor;
@@ -57,38 +62,43 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 			step = 1;
 
-			rightFollower = new EncoderFollower(rightTraj);
-			leftFollower = new EncoderFollower(leftTraj);
-
-			rightFollower.configurePIDVA(0.9, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.00001);
-			leftFollower.configurePIDVA(0.9, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.00001);
-
 			rightTraj = reader.getSegments(Reader.Side.right, posTraj, step);
 			leftTraj = reader.getSegments(Reader.Side.left, posTraj, step);
 
-			rightFollower.setTrajectory(rightTraj);
-			leftFollower.setTrajectory(leftTraj);
+			rightFollower = new EncoderFollower(rightTraj);
+			leftFollower = new EncoderFollower(leftTraj);
 
-			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(),
-					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
-			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(),
-					RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+			rightFollower.configurePIDVA(0.11, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.001);
+			leftFollower.configurePIDVA(0.11, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.001);
+
+			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(), RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
+			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(), RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
 
 			nextState = 20;
 			break;
 
 		case 20:
 
-			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+			rightPower = rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition());
+			leftPower = leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition());
 
-			if (rightFollower.isFinished() && leftFollower.isFinished()) {
+			rightPower = (rightPower * (1 - minVel)) + minVel;
+			leftPower = (leftPower * (1- minVel)) + minVel;
+
+			Robot.drive.setRightPower(rightPower);
+			Robot.drive.setLeftPower(leftPower);
+
+			SmartDashboard.putBoolean("done", rightFollower.isFinished());
+
+			if (rightFollower.isFinished() || leftFollower.isFinished()) {
 				nextState = 100;
 			}
 			break;
 
 		case 100:
+
+			Robot.drive.setRightPower(0.0);
+			Robot.drive.setLeftPower(0.0);
 
 			break;
 		}

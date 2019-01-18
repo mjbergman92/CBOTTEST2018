@@ -92,7 +92,8 @@ public class EncoderFollower {
 		if (segment < segments.length) {
 			Segment seg = segments[segment];
 			double error = seg.position - distance_covered;
-			SmartDashboard.putNumber(this.toString() + "ERROR", error);
+			SmartDashboard.putNumber("Segments Length", segments.length);
+			SmartDashboard.putNumber("Current Segment", segment);
 			double calculated_value = kp * error + // Proportional
 					kd * ((error - last_error) / seg.dt) + // Derivative
 					(kv * seg.velocity + ka * seg.acceleration); // V and A Terms
@@ -101,8 +102,9 @@ public class EncoderFollower {
 			segment++;
 
 			return calculated_value;
-		} else
+		} else {
 			return 0;
+		}
 	}
 
 	/**
