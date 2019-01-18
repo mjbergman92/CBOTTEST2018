@@ -27,43 +27,63 @@ public class Drive extends SystemBase implements SystemInterface {
 	@Override
 	public void process() {
 
-		if (Robot.teleop && Robot.enabled) {
+		if(Robot.oi.getController1().getAButton()){
 
-			SmartDashboard.putNumber("power out", -Robot.oi.getController1().getY(Hand.kLeft));
+			if(getSideToTurn() == Side.LEFT){
 
-			if(Robot.oi.getController1().getTriggerAxis(Hand.kRight) >= 0.5){
+				drive.tankDrive(0.375, 0.425);
 
-				drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft) * 0.6, Robot.oi.getController1().getX(Hand.kLeft) * 0.8);
+			}else if(getSideToTurn() == Side.RIGHT){
+
+				drive.tankDrive(0.425, 0.375);
 
 			}else{
 
-				drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft), Robot.oi.getController1().getX(Hand.kLeft));
+				drive.tankDrive(0.425, 0.425);
 
 			}
 
-		} else if (Robot.autonomous) {
+		}else{
 
-			drive.tankDrive(leftPower, rightPower);
+			if (Robot.teleop && Robot.enabled) {
+
+				//uncomment the following code to see the forward joystick to be put to the motors
+				//SmartDashboard.putNumber("power out", -Robot.oi.getController1().getY(Hand.kLeft));
+	
+				if(Robot.oi.getController1().getTriggerAxis(Hand.kRight) >= 0.5){
+	
+					drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft) * 0.6, Robot.oi.getController1().getX(Hand.kLeft) * 0.8);
+	
+				}else{
+	
+					drive.arcadeDrive(-Robot.oi.getController1().getY(Hand.kLeft), Robot.oi.getController1().getX(Hand.kLeft));
+	
+				}
+	
+			} else if (Robot.autonomous) {
+	
+				drive.tankDrive(leftPower, rightPower);
+	
+			}
 
 		}
 
 		// uncomment the following code to test for max velocity
+		/*
 		double velocity;
 		 
-		if(RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() >
-		RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity()) {
+		if(RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() > RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity()) {
 		
-		velocity =
-		RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
+			velocity = RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
 		
 		}else{
 		
-		velocity =
-		RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
+			velocity = RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity() * 10 * RobotMap.inchesPerCountMultiplier;
 		
 		}
 		
 		SmartDashboard.putNumber("Velocity", velocity);
+		*/
 
 	}
 
@@ -76,6 +96,47 @@ public class Drive extends SystemBase implements SystemInterface {
 	public void setLeftPower(double power) {
 
 		leftPower = power;
+
+	}
+
+	private Side getSideToTurn(){
+
+		if(numOfTapeLeft() > numOfTapeRight()){
+
+			return Side.LEFT;
+
+		}else if(numOfTapeRight() < numOfTapeLeft()){
+
+			return Side.RIGHT;
+
+		}else{
+
+			return Side.CENTER;
+
+		}
+	}
+
+	private int numOfTapeLeft(){
+
+		int numOfTape = 0;
+
+		return numOfTape;
+
+	}
+
+	private int numOfTapeRight(){
+
+		int numOfTape = 0;
+
+		return numOfTape;
+
+	}
+
+	private enum Side{
+
+		LEFT,
+		RIGHT,
+		CENTER
 
 	}
 }

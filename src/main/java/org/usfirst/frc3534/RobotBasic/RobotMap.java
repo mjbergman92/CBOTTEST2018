@@ -36,8 +36,7 @@ public class RobotMap {
 	public static final double minMoveVelocity = .375;
 
 	// Wheel Encoder Calculations
-	public static final int countsPerRevEncoders = 1440; // 1440 if plugged into talon. 360 if directly into the
-															// roborio; just go with, it its weird
+	public static final int countsPerRevEncoders = 1440; // 1440 if plugged into talon. 360 if directly into the roborio; just go with, it its weird
 	public static final double wheelDiameter = 6; // measured in inches
 	public static final double inchesPerCountMultiplier = wheelDiameter * Math.PI / countsPerRevEncoders;
 
