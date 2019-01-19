@@ -68,8 +68,8 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 			rightFollower = new EncoderFollower(rightTraj);
 			leftFollower = new EncoderFollower(leftTraj);
 
-			rightFollower.configurePIDVA(0.11, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.001);
-			leftFollower.configurePIDVA(0.11, 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, 0.001);
+			rightFollower.configurePIDVA(SmartDashboard.getNumber("kP", 0.4), 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, SmartDashboard.getNumber("kA", 0.01));
+			leftFollower.configurePIDVA(SmartDashboard.getNumber("kP", 0.4), 0.0, 0.0, 1 / RobotMap.robotMaxVeloctiy, SmartDashboard.getNumber("kA", 0.01));
 
 			rightFollower.configureEncoder(frontRight.getSensorCollection().getQuadraturePosition(), RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);
 			leftFollower.configureEncoder(frontLeft.getSensorCollection().getQuadraturePosition(), RobotMap.countsPerRevEncoders, RobotMap.wheelDiameter);

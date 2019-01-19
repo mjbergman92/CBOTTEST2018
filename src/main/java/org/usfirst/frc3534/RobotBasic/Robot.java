@@ -67,8 +67,8 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putNumber("autonMode", 0);
 		
-		SmartDashboard.putNumber("kP", 0.11);
-		SmartDashboard.putNumber("kA", 0.001);
+		SmartDashboard.putNumber("kP", 0.4);
+		SmartDashboard.putNumber("kA", 0.01);
 
 	}
 
@@ -144,8 +144,8 @@ public class Robot extends TimedRobot {
 				loopCnt++;
 
 				// run processes
-				drive.process();
 				autonStateMachine.process();
+				drive.process();
 
 			}
 
