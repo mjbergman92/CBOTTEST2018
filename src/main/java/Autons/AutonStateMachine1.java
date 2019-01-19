@@ -30,7 +30,7 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 	Reader reader;
 
-	int step, posTraj = 2;
+	int step, posTraj = 4;
 	/*
 	 * step should equal the part that the trajectory as a whole is on. If it has
 	 * five parts, and you are on the second part, make it equal to 2 for that case
