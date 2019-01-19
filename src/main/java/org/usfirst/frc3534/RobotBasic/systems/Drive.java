@@ -69,7 +69,7 @@ public class Drive extends SystemBase implements SystemInterface {
 		}
 
 		// uncomment the following code to test for max velocity
-		/*
+		
 		double velocity;
 		 
 		if(RobotMap.frontLeftMotor.getSensorCollection().getQuadratureVelocity() > RobotMap.frontRightMotor.getSensorCollection().getQuadratureVelocity()) {
@@ -83,7 +83,7 @@ public class Drive extends SystemBase implements SystemInterface {
 		}
 		
 		SmartDashboard.putNumber("Velocity", velocity);
-		*/
+		
 
 	}
 
