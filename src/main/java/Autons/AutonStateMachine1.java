@@ -82,8 +82,25 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 			rightPower = rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition());
 			leftPower = leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition());
 
-			rightPower = (rightPower * (1 - minVel)) + minVel;
-			leftPower = (leftPower * (1- minVel)) + minVel;
+			if(rightPower > 0){
+				
+				rightPower = (rightPower * (1 - minVel)) + minVel;
+
+			}else{
+
+				rightPower = (rightPower * (1 - minVel)) - minVel;
+
+			}
+			
+			if(leftPower > 0){
+				
+				leftPower = (leftPower * (1 - minVel)) + minVel;
+
+			}else{
+
+				leftPower = (leftPower * (1 - minVel)) - minVel;
+
+			}
 
 			Robot.drive.setRightPower(rightPower);
 			Robot.drive.setLeftPower(leftPower);
