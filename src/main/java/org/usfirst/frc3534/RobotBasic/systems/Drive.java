@@ -1,5 +1,7 @@
 package org.usfirst.frc3534.RobotBasic.systems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc3534.RobotBasic.Robot;
 import org.usfirst.frc3534.RobotBasic.RobotMap;
 
@@ -28,20 +30,6 @@ public class Drive extends SystemBase implements SystemInterface {
 	public void process() {
 
 		if(Robot.oi.getController1().getAButton()){
-
-			if(getSideToTurn() == Side.LEFT){
-
-				drive.tankDrive(0.375, 0.425);
-
-			}else if(getSideToTurn() == Side.RIGHT){
-
-				drive.tankDrive(0.425, 0.375);
-
-			}else{
-
-				drive.tankDrive(0.425, 0.425);
-
-			}
 
 		}else{
 
@@ -83,7 +71,8 @@ public class Drive extends SystemBase implements SystemInterface {
 		}
 		
 		SmartDashboard.putNumber("Velocity", velocity);
-		
+		SmartDashboard.putNumber("Left Distance", RobotMap.frontLeftMotor.getSensorCollection().getQuadraturePosition() * RobotMap.inchesPerCountMultiplier);
+		SmartDashboard.putNumber("Right Distance", RobotMap.frontRightMotor.getSensorCollection().getQuadraturePosition() * RobotMap.inchesPerCountMultiplier);
 
 	}
 
@@ -99,44 +88,9 @@ public class Drive extends SystemBase implements SystemInterface {
 
 	}
 
-	private Side getSideToTurn(){
+	public double getNavxAngle(){
 
-		if(numOfTapeLeft() > numOfTapeRight()){
-
-			return Side.LEFT;
-
-		}else if(numOfTapeRight() < numOfTapeLeft()){
-
-			return Side.RIGHT;
-
-		}else{
-
-			return Side.CENTER;
-
-		}
-	}
-
-	private int numOfTapeLeft(){
-
-		int numOfTape = 0;
-
-		return numOfTape;
-
-	}
-
-	private int numOfTapeRight(){
-
-		int numOfTape = 0;
-
-		return numOfTape;
-
-	}
-
-	private enum Side{
-
-		LEFT,
-		RIGHT,
-		CENTER
+		return RobotMap.navx.getAngle();
 
 	}
 }

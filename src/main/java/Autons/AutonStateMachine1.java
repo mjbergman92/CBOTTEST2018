@@ -9,6 +9,7 @@ import com.kauailabs.navx.frc.AHRS;
 import PathfinderWorkArounds.EncoderFollower;
 import PathfinderWorkArounds.Reader;
 import PathfinderWorkArounds.Segment;
+import PathfinderWorkArounds.EncoderFollower.Side;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonStateMachine1 extends AutonStateMachineBase implements AutonStateMachineInterface {
@@ -79,8 +80,8 @@ public class AutonStateMachine1 extends AutonStateMachineBase implements AutonSt
 
 		case 20:
 
-			rightPower = rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition());
-			leftPower = leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition());
+			rightPower = rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT);
+			leftPower = leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT);
 
 			if(rightPower > 0){
 				

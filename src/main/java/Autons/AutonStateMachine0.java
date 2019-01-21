@@ -9,6 +9,7 @@ import com.kauailabs.navx.frc.AHRS;
 import PathfinderWorkArounds.EncoderFollower;
 import PathfinderWorkArounds.Reader;
 import PathfinderWorkArounds.Segment;
+import PathfinderWorkArounds.EncoderFollower.Side;
 
 public class AutonStateMachine0 extends AutonStateMachineBase implements AutonStateMachineInterface {
 
@@ -83,9 +84,8 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 		case 20:
 
-			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+			Robot.drive.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT));
 
 			if (rightFollower.isFinished() && leftFollower.isFinished()) {
 				nextState = 30;
@@ -121,9 +121,8 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 		case 50:
 
-			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+						Robot.drive.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT));
 
 			if (rightFollower.isFinished() && leftFollower.isFinished()) {
 				nextState = 60;
@@ -159,9 +158,8 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 		case 80:
 
-			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+						Robot.drive.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT));
 
 			if (rightFollower.isFinished() && leftFollower.isFinished()) {
 				nextState = 90;
@@ -197,9 +195,8 @@ public class AutonStateMachine0 extends AutonStateMachineBase implements AutonSt
 
 		case 96:
 
-			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+						Robot.drive.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT));
 
 			if (rightFollower.isFinished() && leftFollower.isFinished()) {
 				nextState = 100;

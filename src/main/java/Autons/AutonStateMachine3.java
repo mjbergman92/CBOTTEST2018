@@ -80,8 +80,8 @@ public class AutonStateMachine3 extends AutonStateMachineBase implements AutonSt
 		case 20:
 
 			Robot.drive
-					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition()));
-			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition()));
+					.setRightPower(rightFollower.calculate(frontRight.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.RIGHT));
+			Robot.drive.setLeftPower(leftFollower.calculate(frontLeft.getSensorCollection().getQuadraturePosition(), EncoderFollower.Side.LEFT));
 
 			if (rightFollower.isFinished() && leftFollower.isFinished()) {
 				nextState = 100;
