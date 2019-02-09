@@ -6,7 +6,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
@@ -31,13 +34,18 @@ public class RobotMap {
 
 	public static AHRS navx;
 
+	public static Solenoid cylinder;
+
+	//public static DigitalInput pneumaticSensor;
+	//COME BACK TO THIS
+
 	public static final double wheelBase_width = 23.375;
 	public static final double robotMaxVeloctiy = 175; // inches per second
-	public static final double minMoveVelocity = .275;
+	public static final double minMoveVelocity = .275; 
 
 	// Wheel Encoder Calculations
 	public static final int countsPerRevEncoders = 1440; // 1440 if plugged into talon. 360 if directly into the roborio; just go with, it its weird
-	public static final double wheelDiameter = 6; // measured in inches
+	public static final double wheelDiameter = 6.00; // measured in inches
 	public static final double inchesPerCountMultiplier = wheelDiameter * Math.PI / countsPerRevEncoders;
 
 	public static void init() {
@@ -77,5 +85,10 @@ public class RobotMap {
 
 		navx = new AHRS(SerialPort.Port.kMXP);
 
+		//pneumaticSensor = new DigitalInput(0);
+		
+		
+
+		
 	}
 }

@@ -3,7 +3,10 @@ package org.usfirst.frc3534.RobotBasic;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.*;
 
+//Import for Network Tables
+import org.usfirst.frc3534.RobotBasic.RobotMap;
 import org.usfirst.frc3534.RobotBasic.systems.*;
 
 import Autons.AutonStateMachine0;
@@ -128,7 +131,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 
 		long prevLoopTime = 0;
-
+		
 		while (this.isAutonomous()) {
 
 			RobotState("autonomous enabled");

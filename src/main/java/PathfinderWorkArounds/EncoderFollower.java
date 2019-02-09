@@ -1,6 +1,7 @@
 package PathfinderWorkArounds;
 
 import org.usfirst.frc3534.RobotBasic.Robot;
+import org.usfirst.frc3534.RobotBasic.RobotMap;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -105,7 +106,7 @@ public class EncoderFollower {
 				angleError = -angleError;
 			}
 			double calculated_value = kp * error + // Proportional
-					(angleError) * 6.5 + 
+					(angleError) * 4 * (.5 + (seg.velocity * .5) / RobotMap.robotMaxVeloctiy) + 
 					kd * ((error - last_error) / seg.dt) + // Derivative
 					(kv * seg.velocity + ka * seg.acceleration); // V and A Terms
 			last_error = error;

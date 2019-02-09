@@ -6,6 +6,8 @@ import org.usfirst.frc3534.RobotBasic.Robot;
 import org.usfirst.frc3534.RobotBasic.RobotMap;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,6 +20,16 @@ public class Drive extends SystemBase implements SystemInterface {
 
 	private double rightPower, leftPower;
 
+	private double left_command = 0.0, right_command = 0.0;
+
+	private double last_error, distance_last_error;
+
+	private double KpAim = 0.065;
+	private double KdAim = 0.004;
+	private double KpDistance = 0.03;
+	private double KdDistance = .015;
+	private double min_aim_command = 0.005;
+
 	public Drive() {
 
 		drive = new DifferentialDrive(leftSide, rightSide);
@@ -29,9 +41,52 @@ public class Drive extends SystemBase implements SystemInterface {
 	@Override
 	public void process() {
 
+		//Network 
+		//Attempt at calling the Network Tables for Limelight and setting it 
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+		double tx = table.getEntry("tx").getDouble(0.0);
+		SmartDashboard.putNumber("tx", tx);
+		double ty = table.getEntry("ty").getDouble(0.0);
+
 		if(Robot.oi.getController1().getAButton()){
 
+			double heading_error = tx;
+        	double distance_error = ty;
+        	double steering_adjust = 0.0;
+
+			if ( tx > 1.0 ) {
+
+                steering_adjust = KpAim * heading_error + min_aim_command  + (heading_error - last_error) * KdAim ;
+	   
+			}
+       		else if ( tx < -1.0 ) {
+
+                steering_adjust = KpAim * heading_error - min_aim_command + (heading_error - last_error) * KdAim;
+			   
+			}else{
+
+				steering_adjust = 0.0;
+				left_command = 0.0;
+				right_command = 0.0;
+
+			}
+
+			last_error = heading_error;
+
+			double distance_adjust = KpDistance * distance_error + KdDistance * (distance_error - distance_last_error);
+			
+			distance_last_error = distance_error;
+
+        	left_command = steering_adjust + distance_adjust ;
+			right_command = -steering_adjust + distance_adjust ;
+
+			drive.tankDrive(left_command, right_command);
+			
+
 		}else{
+
+			last_error = 0;
+			distance_last_error = 0;
 
 			if (Robot.teleop && Robot.enabled) {
 
